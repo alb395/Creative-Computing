@@ -19,7 +19,7 @@ function draw() {
 
 	if(x >= width){
 		x = 0;
-		y += gauge; //for some reason it's only drawing 2 lines
+		y += gauge; 
 	}
 
 	if(y >= height){
