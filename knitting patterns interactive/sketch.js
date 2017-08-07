@@ -1,26 +1,39 @@
 var x = 0;
 var y = 0;
-var speed = 10;
+var speed;
 var gauge; // size of the box
 
-var button, input;
+var gaugeButton, gaugeInput;
+var speedButton, speedInput;
 
 function setup() {
-createCanvas(400,400);
-background(97,63,117);	
+	createCanvas(400,400);
+	background(97,63,117);	
 
- 	// creates an input box and sets position
-    input = createInput();
-    input.position(width, 0);
-    
-    // creates a button and sets position
-    button = createButton('save gauge');
-    button.position(width, input.height);
-    
-    // button callback function
-    button.mousePressed(saveGauge);
+	// creates an input box and sets position
+	    speedInput = createInput();
+	    speedInput.position(width, 0);
+	// creates a button and sets position
+	    // speedButton = createButton('save speed');
+	    // speedButton.position(width, speedInput.height);
+	// button callback function
+		// speedButton.mousePressed(saveSpeed);
 
-    noLoop(); // don't run until input is submitted
+		// creates an input box and sets position
+	    gaugeInput = createInput();
+	    gaugeInput.position(width, 50);
+	// creates a button and sets position
+	//     gaugeButton = createButton('save gauge');
+	//     gaugeButton.position(width, 50 + gaugeInput.height); 
+	// button callback function
+		// gaugeButton.mousePressed(saveGauge);
+
+	// go button
+		goButton = createButton('Go!');
+		goButton.position(width, 100);
+		goButton.mousePressed(runPattern);
+
+    noLoop(); // don't run until last input is submitted
 }
 
 function draw() {
@@ -31,7 +44,7 @@ function draw() {
 	// when you reach the end of a line, basically do a line break + carriage return
 	if(x >= width){
 		x = 0;
-		y += gauge; //for some reason it's only drawing 2 lines
+		y += gauge; 
 	}
 
 	// the pattern should only run once.
@@ -45,11 +58,24 @@ function draw() {
 	}
 }
 
+function saveSpeed() {
+	// save the input in a variable
+	var userSpeed = speedInput.value();
+	speedInput.value('');
+	console.log("selected speed: " + userSpeed);
+	speed = Number(userSpeed);
+}
+
 function saveGauge() {
     // save the input in a variable
-  	var userGauge = input.value();
-    input.value(''); //clears saved text from the input box
+  	var userGauge = gaugeInput.value();
+    gaugeInput.value(''); //clears saved text from the input box
     console.log("selected gauge: " + userGauge);
-    gauge = userGauge;
-    loop();
+    gauge = Number(userGauge);
+}
+
+function runPattern(){
+	saveGauge();
+	saveSpeed();
+	loop();
 }
