@@ -6,23 +6,31 @@ var gauge; // size of the box
 var gaugeButton, gaugeInput;
 var speedButton, speedInput;
 
+var gaugeSlider;
+var speedSlider;
+
 function setup() {
 	createCanvas(400,400);
 	background(97,63,117);	
 
-	var speedLabel = createP('speed: ');
+
+
+// creates an input slider and sets position
+    speedSlider = createSlider(1,20,5,1);
+    speedSlider.position(width, 40);
+
+    var speedLabel = createP('speed: ');
 	speedLabel.position(width, 0);
 
-	// creates an input box and sets position
-	    speedInput = createInput();
-	    speedInput.position(width, speedLabel.height + 20);
+    // var speedCurrent = createP(speedSlider.value);
+    // speedCurrent.position(width + speedSlider.width, speedLabel.height + 20);
 
 	var gaugeLabel = createP('gauge: ');
-	gaugeLabel.position(width, 40);
+	gaugeLabel.position(width, 50);
 
-	// creates an input box and sets position
-	    gaugeInput = createInput();
-	    gaugeInput.position(width, 80);
+// creates an input slider and sets position
+    gaugeSlider = createSlider(0,100,20,5);
+    gaugeSlider.position(width, 90);
 
 	// go button
 		goButton = createButton('Go!');
@@ -52,21 +60,23 @@ function draw() {
 		fill(255);
 		rect(x, y, 1.5*gauge, gauge);
 	}
+
+
 }
 
 function saveSpeed() {
 	// save the input in a variable
-	var userSpeed = speedInput.value();
+	var userSpeed = speedSlider.value();
 	// speedInput.value('');
 	console.log("selected speed: " + userSpeed);
 	speed = Number(userSpeed);
 
-	
+
 }
 
 function saveGauge() {
     // save the input in a variable
-  	var userGauge = gaugeInput.value();
+  	var userGauge = gaugeSlider.value();
     // gaugeInput.value(''); //clears saved text from the input box
     console.log("selected gauge: " + userGauge);
     gauge = Number(userGauge);
