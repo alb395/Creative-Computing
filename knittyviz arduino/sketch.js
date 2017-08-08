@@ -82,10 +82,7 @@ function draw() {
 		noLoop();
 	}
 	
-	if(needlesTouching == 48){ // why isn't this only applying when the value is 48
-		fill(255);
-		rect(x, y, gauge, gauge);
-	}
+
 
 	// if(mouseIsPressed){
 	// 	fill(255);
@@ -149,6 +146,11 @@ function serialEvent(){
 
     console.log("serial read is: " + serial.read());
     console.log("needlesTouching variable is: " + needlesTouching);
+
+    	if(needlesTouching == 48){ // why isn't this only applying when the value is 48
+		fill(255);
+		rect(x, y, gauge, gauge);
+	}
 }
 
 function serialError(err){
