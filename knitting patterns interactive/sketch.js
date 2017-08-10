@@ -13,7 +13,7 @@ var speedSlider, speedInput;
 var resetButton;
 
 function setup() {
-	createCanvas(400,420);
+	createCanvas(500,520);
 	background(97,63,117);	
 
  // creates an input slider and sets position

@@ -10,13 +10,22 @@ var y = 0;
 var speed = 0;
 var gauge = 0; // size of the box
 
+var text;
+
+var nameBox;
 var gaugeSlider, gaugeInput;
 var speedSlider, speedInput;
 
 var resetButton;
 
+var nameLabel;
+
+var userName;
+
+// var userSpeed;
+
 function setup() {
-	createCanvas(400,420);
+	createCanvas(400,500);
 	background(97,63,117);	
 
 // serial communication info
@@ -29,38 +38,42 @@ function setup() {
     serial.on('close',portClose);// callback for the port closing
     serial.open(portName);// open a serial port
 
- // creates an input slider and sets position
-    speedSlider = createSlider(1,20,5,1);
-    speedSlider.position(width, 90);
-
-    var speedLabel = createP('speed: ');
-	speedLabel.position(width, 50);
-
-    // var speedCurrent = createP(speedSlider.value);
-    // speedCurrent.position(width + speedSlider.width, speedLabel.height + 20);
-
-	var gaugeLabel = createP('gauge: ');
-	gaugeLabel.position(width, 0);
-
- // creates an input slider and sets position
+    noStroke();
+	fill(255);
+	var topBox = rect(0, 0, width, 100);
+	fill(0);
+	
+	text("Title: ", 10, 25);
+    nameBox = createInput('');
+    nameBox.position(60, 10);
+	
+	var gaugeLabel = text("Gauge: ", 10, 60);
+	// creates an input slider and sets position. (lowVal, highVal, defaultVal, increments)
     gaugeSlider = createSlider(1,100,10,1);
-    gaugeSlider.position(width, 40);
+    gaugeSlider.position(60, 47);
 
+	var speedLabel = text("Speed: ", 10, 95);
+    speedSlider = createSlider(1,10,5,1);
+    speedSlider.position(60, 80);
+    
+
+	
  // go button to start the pattern
 	goButton = createButton('Go!');
-	goButton.position(width, 120);
+	goButton.position(width - 35, 80);
 	goButton.mousePressed(runPattern);
 
     noLoop(); // don't run until Go button is pressed
 
     resetButton = createButton('Reset');
-    resetButton.position(width, 150);
+    resetButton.position(width, height-20);
     resetButton.mousePressed(refresh);
+
 
 }
 
 function draw() {
-	noStroke();
+	noStroke();	
 
 	x = x + speed;
 
@@ -81,19 +94,23 @@ function draw() {
 	if(y >= height - 20){
 		noLoop();
 	}
-	
-
 
 	// if(mouseIsPressed){
 	// 	fill(255);
 	// 	rect(x, y, gauge, gauge);
 	// }
 
-	fill(255);
-	rect(0, height-20, width, 20);
-	fill(0);
-	text("gauge selected: " + gauge, 0, height-10);  
-	text("speed selected: " + speed, width/2, height-10);
+	// text("gauge selected: " + gauge, 0, 100);  
+	//	text("speed selected: " + speed, width/2, height/2);
+
+	fill(97,63,117)
+	// rect(200, 60, gauge, gauge);
+}
+function saveName() {
+	userName = nameBox.value();
+	nameBox.value('');
+	console.log("title is: " + userName);
+	
 }
 
 function saveGauge() {
@@ -115,6 +132,11 @@ function saveSpeed() {
 function runPattern(){
 	saveGauge();
 	saveSpeed();
+	saveName();
+	text(userName, 200, 25);
+	text(speed, 200, 95);
+	// rectMode(CENTER);
+	rect(200, 50, gauge, gauge);
 	loop();
 }
 
